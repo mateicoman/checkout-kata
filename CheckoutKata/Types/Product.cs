@@ -1,10 +1,11 @@
-﻿using System;
+﻿using CheckoutKata.Types;
+using System;
 
 namespace CheckoutKata
 {
-	public class Product
+	public class Product : IProduct
 	{
-		public string SKU { get; set; }
+		public char SKU { get; set; }
 		public int Price { get; set; }
 	}
 }

@@ -20,7 +20,7 @@ namespace CheckoutKata.src
 		{
 			int total = products.Sum(x => x.Price);
 
-			IEnumerable<char> productsOnOffer = products.Where(x => x.Discount != null).Select(x => x.SKU);
+			IEnumerable<char> productsOnOffer = products.Where(x => x.Discount != null).Select(x => x.SKU).Distinct();
 			foreach(char sku in productsOnOffer)
 			{
 				IEnumerable<IProduct> sameProductList = products.Where(x => x.SKU == sku);

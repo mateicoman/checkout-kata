@@ -12,7 +12,8 @@ namespace CheckoutKata.src
 		private List<IProduct> products = new List<IProduct>();
 		public void Scan(IProduct product)
 		{
-			products.Add(product);
+			if(product != null)
+				products.Add(product);
 		}
 
 		public int GetTotalPrice()

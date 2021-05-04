@@ -2,20 +2,23 @@
 using CheckoutKata.Types;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace CheckoutKata.src
 {
 	public class Checkout : ICheckout
 	{
+		private List<IProduct> products = new List<IProduct>();
 		public void Scan(IProduct product)
 		{
-			throw new NotImplementedException();
+			products.Add(product);
 		}
 
 		public int GetTotalPrice()
 		{
-			throw new NotImplementedException();
+			int total = products.Sum(x => x.Price);
+			return total;
 		}
 	}
 }

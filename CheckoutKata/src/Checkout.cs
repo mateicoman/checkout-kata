@@ -18,6 +18,15 @@ namespace CheckoutKata.src
 		public int GetTotalPrice()
 		{
 			int total = products.Sum(x => x.Price);
+
+			IEnumerable<char> productsOnOffer = products.Where(x => x.Discount != null).Select(x => x.SKU);
+			foreach(char sku in productsOnOffer)
+			{
+				IEnumerable<IProduct> sameProductList = products.Where(x => x.SKU == sku);
+				if(sameProductList.Any())
+					total -= sameProductList.First().Discount.CalculateDiscountForOneProduct(sameProductList);
+			}
+
 			return total;
 		}
 	}

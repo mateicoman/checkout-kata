@@ -9,7 +9,7 @@ namespace CheckoutKata.Types
 	public interface IProduct
 	{
 		char SKU { get; set; }
-		int Price { get; set; }
+		decimal Price { get; set; }
 		Discount Discount { get; set; }
 }
 }

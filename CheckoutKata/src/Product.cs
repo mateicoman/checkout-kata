@@ -8,10 +8,10 @@ namespace CheckoutKata
 	public class Product : IProduct
 	{
 		public char SKU { get; set; }
-		public int Price { get; set; }
+		public decimal Price { get; set; }
 		public Discount Discount { get; set; }
 
-		public Product(char _sku, int _price, Discount _discount = null)
+		public Product(char _sku, decimal _price, Discount _discount = null)
 		{
 			SKU = _sku;
 			Price = _price;

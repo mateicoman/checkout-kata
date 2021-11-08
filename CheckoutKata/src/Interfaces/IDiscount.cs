@@ -7,9 +7,11 @@ namespace CheckoutKata.src.Interfaces
 {
 	public interface IDiscount
 	{
-		int NumberOfItems { get; set; }
-		int DiscountValue { get; set; }
+		int NumberOfItemsRequired { get; set; }
+		decimal DiscountValue { get; set; }
+		decimal DiscountPercentage { get; set; }
 
-		int CalculateDiscountForOneProduct(IEnumerable<IProduct> list);
+		decimal CalculateDiscountForOneProduct(IEnumerable<IProduct> list);
+		decimal CalculatePercentageDiscount(IEnumerable<IProduct> list);
 	}
 }

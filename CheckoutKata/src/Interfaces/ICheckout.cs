@@ -5,9 +5,9 @@ using System.Text;
 
 namespace CheckoutKata.src.Interfaces
 {
-    interface ICheckout
+    public interface ICheckout
     {
         void Scan(IProduct product);
-        int GetTotalPrice();
+        decimal GetTotalPrice();
     }
 }

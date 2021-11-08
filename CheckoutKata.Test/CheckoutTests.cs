@@ -9,10 +9,10 @@ namespace CheckoutKata.Test
 
         private IEnumerable<Product> products = new[]
         {
-            new Product('A', 50, new Discount(3, 20)),
-            new Product('B', 30, new Discount(2, 15)),
-            new Product('C', 20),
-            new Product('D', 15)
+            new Product('A', 10),
+            new Product('B', 15, new Discount(3, 5, 0)),
+            new Product('C', 40),
+            new Product('D', 55, new Discount(2, 0, 25))
         };
 		
 
@@ -27,62 +27,62 @@ namespace CheckoutKata.Test
         public void Test2_SameProductOnDiscount()
         {
             var checkout = new Checkout();
-            //CASE FOR PRODUCT A
-            var a = new Product('A', 50, new Discount(3, 20));
+            //CASE FOR PRODUCT B
+            var b = new Product('B', 15, new Discount(3, 5, 0));
 
-            checkout.Scan(a);
-            checkout.Scan(a);
-            checkout.Scan(a);
+            checkout.Scan(b);
+            checkout.Scan(b);
+            checkout.Scan(b);
 
-            Assert.AreEqual(130, checkout.GetTotalPrice());
+            Assert.AreEqual(40, checkout.GetTotalPrice());
 
-            //CASE FOR PROD B
+            //CASE FOR PROD D
             var checkout_2 = new Checkout();
-            var b = new Product('B', 30, new Discount(2, 15));
+            var d = new Product('D', 55, new Discount(2, 0, 25));
 
-            checkout_2.Scan(b);
-            checkout_2.Scan(b);
+            checkout_2.Scan(d);
+            checkout_2.Scan(d);
 
-            Assert.AreEqual(45, checkout_2.GetTotalPrice());
+            Assert.AreEqual(82.5, checkout_2.GetTotalPrice());
         }
 
         [Test]
         public void Test3_SameProductNoDiscount()
         {
             var checkout = new Checkout();
-            //CASE FOR PRODUCT A
-            var a = new Product('A', 50, new Discount(3, 20));
+            //CASE FOR PRODUCT B
+            var b = new Product('B', 15, new Discount(3, 5, 0));
 
-            checkout.Scan(a);
-            checkout.Scan(a);
+            checkout.Scan(b);
+            checkout.Scan(b);
 
-            Assert.AreEqual(100, checkout.GetTotalPrice());
+            Assert.AreEqual(30, checkout.GetTotalPrice());
 
-            //CASE FOR PROD B
+            //CASE FOR PROD D
             var checkout_2 = new Checkout();
-            var b = new Product('B', 30, new Discount(2, 15));
+            var d = new Product('D', 55, new Discount(2, 0, 25));
 
-            checkout_2.Scan(b);
+            checkout_2.Scan(d);
 
-            Assert.AreEqual(30, checkout_2.GetTotalPrice());
+            Assert.AreEqual(55, checkout_2.GetTotalPrice());
         }
 
         [Test]
         public void Test4_MixedProductsOnDiscount()
 		{
             var checkout = new Checkout();
-            
-            var a = new Product('A', 50, new Discount(3, 20));
-            var b = new Product('B', 30, new Discount(2, 15));
 
-            checkout.Scan(a);
-            checkout.Scan(a);
-            checkout.Scan(a);
+            var b = new Product('B', 15, new Discount(3, 5, 0));
+            var d = new Product('D', 55, new Discount(2, 0, 25));
 
             checkout.Scan(b);
             checkout.Scan(b);
+            checkout.Scan(b);
 
-            Assert.AreEqual(175, checkout.GetTotalPrice());
+            checkout.Scan(d);
+            checkout.Scan(d);
+
+            Assert.AreEqual(122.5, checkout.GetTotalPrice());
         }
 
         [Test]
@@ -90,10 +90,10 @@ namespace CheckoutKata.Test
         {
             var checkout = new Checkout();
 
-            var a = new Product('A', 50, new Discount(3, 20));
-            var b = new Product('B', 30, new Discount(2, 15));
-            var c = new Product('C', 20);
-            var d = new Product('D', 15);
+            var a = new Product('A', 10);
+            var b = new Product('B', 15, new Discount(3, 5, 0));
+            var c = new Product('C', 40);
+            var d = new Product('D', 55, new Discount(2, 0, 25));
 
             checkout.Scan(a);
             checkout.Scan(a);
@@ -104,9 +104,8 @@ namespace CheckoutKata.Test
             checkout.Scan(c);
 
             checkout.Scan(d);
-            checkout.Scan(d);
 
-            Assert.AreEqual(200, checkout.GetTotalPrice());
+            Assert.AreEqual(170, checkout.GetTotalPrice());
         }
 
         [Test]
@@ -114,10 +113,10 @@ namespace CheckoutKata.Test
         {
             var checkout = new Checkout();
 
-            var a = new Product('A', 50, new Discount(3, 20));
-            var b = new Product('B', 30, new Discount(2, 15));
-            var c = new Product('C', 20);
-            var d = new Product('D', 15);
+            var a = new Product('A', 10);
+            var b = new Product('B', 15, new Discount(3, 5, 0));
+            var c = new Product('C', 40);
+            var d = new Product('D', 55, new Discount(2, 0, 25));
 
             checkout.Scan(a);
             checkout.Scan(a);
@@ -134,8 +133,9 @@ namespace CheckoutKata.Test
 
             checkout.Scan(d);
             checkout.Scan(d);
+            checkout.Scan(d);
 
-            Assert.AreEqual(340, checkout.GetTotalPrice());
+            Assert.AreEqual(312.5, checkout.GetTotalPrice());
         }
     }
 }

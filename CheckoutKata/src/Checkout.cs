@@ -16,16 +16,20 @@ namespace CheckoutKata.src
 				products.Add(product);
 		}
 
-		public int GetTotalPrice()
+		public decimal GetTotalPrice()
 		{
-			int total = products.Sum(x => x.Price);
+			decimal total = products.Sum(x => x.Price);
 
 			IEnumerable<char> productsOnOffer = products.Where(x => x.Discount != null).Select(x => x.SKU).Distinct();
 			foreach(char sku in productsOnOffer)
 			{
-				IEnumerable<IProduct> sameProductList = products.Where(x => x.SKU == sku);
-				if(sameProductList.Any())
-					total -= sameProductList.First().Discount.CalculateDiscountForOneProduct(sameProductList);
+				IEnumerable<IProduct> sameProductListFixedDiscount = products.Where(x => x.SKU == sku && x.Discount.DiscountPercentage == 0);
+				if(sameProductListFixedDiscount.Any())
+					total -= sameProductListFixedDiscount.First().Discount.CalculateDiscountForOneProduct(sameProductListFixedDiscount);
+
+				IEnumerable<IProduct> sameProductListPercentage = products.Where(x => x.SKU == sku && x.Discount.DiscountValue == 0);
+				if (sameProductListPercentage.Any())
+					total -= sameProductListPercentage.First().Discount.CalculatePercentageDiscount(sameProductListPercentage);
 			}
 
 			return total;
